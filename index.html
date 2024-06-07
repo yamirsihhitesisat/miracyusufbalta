@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="tr" prefix="og: https://ogp.me/ns#"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>if(navigator.userAgent.match||navigator.userAgent.match){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+
+
+
+<link rel="stylesheet" type="text/css" href="./Yamir Sıhhi Tesisat_files/style.php" data-rocket-async="style" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;" media="all">
+<!--[if lt IE 9]>
+<script src="https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/scripts/html5shiv.js"></script>
+<![endif]-->
+<link rel="shortcut icon" href="https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/images/favicon.ico" type="image/x-icon">
+
+<!-- Rank Math ile arama motoru optimizasyonu - https://s.rankmath.com/home -->
+<title>Su Kaçağı Tespiti Eymir | Su Tesisatçısı | Ya-Mir Tesisat</title><style id="rocket-critical-css">html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}header,nav{display:block}a{background-color:transparent}small{font-size:80%}img{border:0}button{margin:0;font:inherit;color:inherit}button{overflow:visible}button{text-transform:none}button{-webkit-appearance:button}button::-moz-focus-inner{padding:0;border:0}@font-face{font-display:swap;font-family:'Glyphicons Halflings';src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/glyphicons-halflings-regular.eot);src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/glyphicons-halflings-regular.woff2) format('woff2'),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/glyphicons-halflings-regular.woff) format('woff'),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/glyphicons-halflings-regular.ttf) format('truetype'),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg')}.glyphicon{position:relative;top:1px;display:inline-block;font-family:'Glyphicons Halflings';font-style:normal;font-weight:400;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.glyphicon-chevron-left:before{content:"\e079"}.glyphicon-chevron-right:before{content:"\e080"}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}:after,:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html{font-size:10px}body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;font-size:14px;line-height:1.42857143;color:#333;background-color:#fff}button{font-family:inherit;font-size:inherit;line-height:inherit}a{color:#337ab7;text-decoration:none}img{vertical-align:middle}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}h2,h3,h5{font-family:inherit;font-weight:500;line-height:1.1;color:inherit}h2,h3{margin-top:20px;margin-bottom:10px}h5{margin-top:10px;margin-bottom:10px}h2{font-size:30px}h3{font-size:24px}h5{font-size:14px}p{margin:0 0 10px}small{font-size:85%}ul{margin-top:0;margin-bottom:10px}ul ul{margin-bottom:0}.container{padding-right:15px;padding-left:15px;margin-right:auto;margin-left:auto}@media (min-width:768px){.container{width:750px}}@media (min-width:992px){.container{width:970px}}@media (min-width:1200px){.container{width:1170px}}.row{margin-right:-15px;margin-left:-15px}.col-md-4,.col-sm-4{position:relative;min-height:1px;padding-right:15px;padding-left:15px}@media (min-width:768px){.col-sm-4{float:left}.col-sm-4{width:33.33333333%}}@media (min-width:992px){.col-md-4{float:left}.col-md-4{width:33.33333333%}}.btn{display:inline-block;padding:6px 12px;margin-bottom:0;font-size:14px;font-weight:400;line-height:1.42857143;text-align:center;white-space:nowrap;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;background-image:none;border:1px solid transparent;border-radius:4px}.collapse{display:none}.nav{padding-left:0;margin-bottom:0;list-style:none}.nav>li{position:relative;display:block}.nav>li>a{position:relative;display:block;padding:10px 15px}.navbar{position:relative;min-height:50px;margin-bottom:20px;border:1px solid transparent}@media (min-width:768px){.navbar{border-radius:4px}}@media (min-width:768px){.navbar-header{float:left}}.navbar-collapse{padding-right:15px;padding-left:15px;overflow-x:visible;-webkit-overflow-scrolling:touch;border-top:1px solid transparent;-webkit-box-shadow:inset 0 1px 0 rgba(255,255,255,.1);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}@media (min-width:768px){.navbar-collapse{width:auto;border-top:0;-webkit-box-shadow:none;box-shadow:none}.navbar-collapse.collapse{display:block!important;height:auto!important;padding-bottom:0;overflow:visible!important}}.container>.navbar-collapse,.container>.navbar-header{margin-right:-15px;margin-left:-15px}@media (min-width:768px){.container>.navbar-collapse,.container>.navbar-header{margin-right:0;margin-left:0}}.navbar-brand{float:left;height:50px;padding:15px 15px;font-size:18px;line-height:20px}.navbar-brand>img{display:block}@media (min-width:768px){.navbar>.container .navbar-brand{margin-left:-15px}}.navbar-toggle{position:relative;float:right;padding:9px 10px;margin-top:8px;margin-right:15px;margin-bottom:8px;background-color:transparent;background-image:none;border:1px solid transparent;border-radius:4px}.navbar-toggle .icon-bar{display:block;width:22px;height:2px;border-radius:1px}.navbar-toggle .icon-bar+.icon-bar{margin-top:4px}@media (min-width:768px){.navbar-toggle{display:none}}.navbar-nav{margin:7.5px -15px}.navbar-nav>li>a{padding-top:10px;padding-bottom:10px;line-height:20px}@media (min-width:768px){.navbar-nav{float:left;margin:0}.navbar-nav>li{float:left}.navbar-nav>li>a{padding-top:15px;padding-bottom:15px}}.carousel{position:relative}.carousel-inner{position:relative;width:100%;overflow:hidden}.carousel-inner>.item{position:relative;display:none}@media all and (transform-3d),(-webkit-transform-3d){.carousel-inner>.item{-webkit-backface-visibility:hidden;backface-visibility:hidden;-webkit-perspective:1000px;perspective:1000px}.carousel-inner>.item.active{left:0;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}}.carousel-inner>.active{display:block}.carousel-inner>.active{left:0}.carousel-control{position:absolute;top:0;bottom:0;left:0;width:15%;font-size:20px;color:#fff;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,.6);background-color:rgba(0,0,0,0);filter:alpha(opacity=50);opacity:.5}.carousel-control.left{background-image:-webkit-linear-gradient(left,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);background-image:-o-linear-gradient(left,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);background-image:-webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.5)),to(rgba(0,0,0,.0001)));background-image:linear-gradient(to right,rgba(0,0,0,.5) 0,rgba(0,0,0,.0001) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);background-repeat:repeat-x}.carousel-control.right{right:0;left:auto;background-image:-webkit-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);background-image:-o-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);background-image:-webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.0001)),to(rgba(0,0,0,.5)));background-image:linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.5) 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);background-repeat:repeat-x}.carousel-control .glyphicon-chevron-left,.carousel-control .glyphicon-chevron-right{position:absolute;top:50%;z-index:5;display:inline-block;margin-top:-10px}.carousel-control .glyphicon-chevron-left{left:50%;margin-left:-10px}.carousel-control .glyphicon-chevron-right{right:50%;margin-right:-10px}@media screen and (min-width:768px){.carousel-control .glyphicon-chevron-left,.carousel-control .glyphicon-chevron-right{width:30px;height:30px;margin-top:-10px;font-size:30px}.carousel-control .glyphicon-chevron-left{margin-left:-10px}.carousel-control .glyphicon-chevron-right{margin-right:-10px}}.container:after,.container:before,.nav:after,.nav:before,.navbar-collapse:after,.navbar-collapse:before,.navbar-header:after,.navbar-header:before,.navbar:after,.navbar:before,.row:after,.row:before{display:table;content:" "}.container:after,.nav:after,.navbar-collapse:after,.navbar-header:after,.navbar:after,.row:after{clear:both}@-ms-viewport{width:device-width}@font-face{font-display:swap;font-family:'FontAwesome';src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/fontawesome-webfont.eot?v=4.7.0);src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/fontawesome-webfont.eot?#iefix&v=4.7.0) format('embedded-opentype'),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/fontawesome-webfont.woff2?v=4.7.0) format('woff2'),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/fontawesome-webfont.woff?v=4.7.0) format('woff'),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/fontawesome-webfont.ttf?v=4.7.0) format('truetype'),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular) format('svg');font-weight:normal;font-style:normal}.fa{display:inline-block;font:normal normal normal 14px/1 FontAwesome;font-size:inherit;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.fa-phone:before{content:"\f095"}.fa-whatsapp:before{content:"\f232"}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}.animated{-webkit-animation-duration:1s;animation-duration:1s;-webkit-animation-fill-mode:both;animation-fill-mode:both}@-webkit-keyframes fadeIn{0%{opacity:0}to{opacity:1}}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}.fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.owl-carousel{display:none;width:100%;position:relative;z-index:1}button::-moz-focus-inner{padding:0;border:0}@font-face{font-display:swap;font-family:'Roboto';src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-regular-webfont.eot);src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-regular-webfont.eot?#iefix) format("embedded-opentype"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-regular-webfont.woff2) format("woff2"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-regular-webfont.woff) format("woff"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-regular-webfont.ttf) format("truetype");font-weight:400}@font-face{font-display:swap;font-family:'Roboto';src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-bold-webfont.eot);src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-bold-webfont.eot?#iefix) format("embedded-opentype"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-bold-webfont.woff2) format("woff2"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-bold-webfont.woff) format("woff"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-bold-webfont.ttf) format("truetype");font-weight:700}@font-face{font-display:swap;font-family:'Roboto';src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-light-webfont.eot);src:url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-light-webfont.eot?#iefix) format("embedded-opentype"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-light-webfont.woff2) format("woff2"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-light-webfont.woff) format("woff"),url(https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/fonts/roboto/roboto-light-webfont.ttf) format("truetype");font-weight:300}body{font-family:"Roboto",sans-serif;color:#596570;font-size:16px;line-height:1.75;font-weight:300;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-family:'Open Sans',sans-serif}html,body{overflow-x:hidden}h2,h3,h5,p,ul{margin:0 0 18px;font-family:'Open Sans',sans-serif}h2:last-child,h5:last-child,p:last-child,ul:last-child{margin-bottom:0}h2,h3,h5{line-height:1.3;font-weight:400;color:#373e45;font-family:'Open Sans',sans-serif}h2{font-size:1.875em}h3{font-size:1.5em;font-weight:300}h5{font-size:1.1em;margin-bottom:8px}.heading-sm-lead{font-size:.875em}ul{padding:0px;margin:0px}ul li{list-style:none}.heading-sm-lead{letter-spacing:4px;font-weight:300;font-family:"Roboto",sans-serif;text-transform:uppercase;margin-bottom:5px}.heading-sm-lead+h2{margin-top:0}.heading-sm-lead{color:#014FB4}.light,.light h3,.light h5{color:#fff}a{outline:0;color:#014FB4}a:link,a:visited{text-decoration:none}img{outline:0;border:0 none;max-width:100%;height:auto;vertical-align:top;-ms-border-radius:0px;border-radius:0px}.center{text-align:center}.al-left{text-align:left}.section-pad{padding-top:80px;padding-bottom:80px}.imagebg img{display:none}.btn{font-family:"Roboto",sans-serif;font-size:13px;line-height:1.4;font-weight:600;padding:12px 20px;text-align:center;text-transform:uppercase;letter-spacing:0.03em;color:#fff;border:2px solid #014FB4;background-color:#014FB4;box-sizing:border-box;-ms-border-radius:2px;border-radius:2px}.btn.btn-alt{background:#F92323;border-color:#F92323}.btn.btn-outline{color:#014FB4;background-color:transparent}.btn.btn-outline.btn-light{color:#fff;border-color:#fff}.color-secondary{color:#F92323}.navbar-toggle{margin-right:0px}.carousel-control{visibility:hidden;opacity:0;width:60px}.carousel-control.left,.carousel-control.right{background-image:none;filter:none}.carousel-control .glyphicon-chevron-left,.carousel-control .glyphicon-chevron-right{width:60px;height:60px;padding-top:0;-ms-border-radius:50px;border-radius:50px;font-family:'FontAwesome';text-shadow:none;font-size:44px;margin-top:-30px}.carousel-control .glyphicon-chevron-left{left:10%}.carousel-control .glyphicon-chevron-left:before{content:'\f104'}.carousel-control .glyphicon-chevron-right{right:10%}.carousel-control .glyphicon-chevron-right:before{content:'\f105'}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.carousel{height:100%}.carousel .carousel-inner,.carousel .item,.carousel .active{height:100%}.site-header .navbar{border-radius:0;border:0 none;min-width:300px;padding:20px 0 0;color:#36454e;background:#fff;margin:0;z-index:9}.site-header .navbar-brand{height:auto;padding:0}.site-header .navbar-brand img{width:auto;max-width:100%;max-height:46px}.site-header .navbar-header .quote-btn{display:none}.site-header .navbar-collapse{padding:0;background-color:transparent;color:#596570}.site-header .quote-btn{padding:0;display:inline-block}.site-header .quote-btn .btn{font-family:"Roboto",sans-serif;padding:6px 25px;font-size:12px;line-height:24px;font-weight:700;text-transform:uppercase;color:#fff;background-color:#F92323;border:2px solid #F92323;margin:0;vertical-align:middle}.top-contact{margin:0;list-style:none;font-size:13px;line-height:30px;color:inherit}.top-contact .fa{height:30px;width:30px;line-height:30px;text-align:center;border-radius:50%;background:transparent;border:1px solid #014FB4;color:#014FB4;font-size:18px;margin-right:5px;vertical-align:middle}.top-contact span{font-size:1.25em;font-weight:400}.top-contact span .fa{height:auto;width:auto;line-height:inherit;border:0 none}.top-contact span small{font-size:11px;font-weight:400}.top-contact span em{font-style:normal}.top-contact li{margin-left:35px;float:left;line-height:inherit}.top-contact li:first-child{margin-left:0}.top-contact a{color:inherit}.top-contact .t-phone-s2{line-height:18px}.top-contact .t-phone-s2 span{font-size:1.5em}.top-contact .t-phone-s2 span>small{display:block}.header-top{margin-top:8px;margin-right:-15px;float:right}.header-top>*{float:left;margin-left:25px}.header-top>*:first-child{margin-left:0}.header-top .top-contact{line-height:40px}.header-top .top-contact .t-phone span{vertical-align:middle}.header-top .quote-btn .btn{padding:8px 22px;margin-top:-2px;letter-spacing:inherit}.navbar-nav{width:100%}.navbar-nav>li>a{background:transparent;text-transform:uppercase;color:inherit;font-family:"Roboto",sans-serif;font-weight:700;font-size:14px;line-height:20px;padding:14px 16px}.navbar-nav li ul{position:absolute;background:#fff;border:0px;border-radius:0;padding:0px;left:0;top:-999em;z-index:99;display:block;opacity:0;width:240px;visibility:hidden;box-shadow:0 5px 20px rgba(0,0,0,0.1)}.navbar-nav li ul li{position:relative}.navbar-nav li ul li a{color:inherit;padding:7px 21px 6px 14px;text-transform:inherit;display:block;font-size:14px;font-family:'Open Sans',sans-serif}.navbar-nav ul li{color:#596570}.header-s1 .navbar{padding-bottom:0}.header-s1 .navbar>.container{padding:0}.header-s1 .navbar>.container .navbar-brand{margin-left:0}.header-s1 .navbar>.container .header-top{margin-right:0}.header-s1 .navbar-collapse{width:100%;float:left;clear:left;margin:20px 0 0;background:#014FB4;color:#fff}.header-s1 .navbar-collapse>ul.nav{position:relative;z-index:2;width:102%}.header-s1 .navbar-collapse::after{content:"";display:block;position:absolute;background:#014FB4;left:50%;right:0;height:56px;width:100%;z-index:0;transform:translateX(-50%)}.header-s1 .navbar-nav{margin-right:-20px}.header-s1 .navbar-nav>li>a{padding:18px 17px}.banner-text{color:#596570;position:relative;padding-top:60px;padding-bottom:60px;z-index:1;font-size:16px}.banner-text:not([class*="wide-"]){max-width:100%}.banner-text.pos-left{float:left}.banner-text.pos-right{float:right}.banner-text.light{color:#fff}.banner-text .animated{animation-delay:350ms;animation-duration:1s}.banner-text .btn{font-weight:700;letter-spacing:0;text-transform:uppercase;text-shadow:none}.banner-text .btn+.btn{margin-left:12px}.banner-text .page-title{color:inherit;font-size:2em;font-weight:400}.banner-text h3{margin-bottom:0}.banner-text h3+*{margin-top:10px}.banner-text p:not(:last-child){margin-bottom:10px;font-family:'Open Sans',sans-serif}.banner-text.style-modern{font-size:24px;line-height:1.4}.banner-text.style-modern .page-title{font-size:35px;line-height:1.1;font-weight:bold;letter-spacing:-0.04em;width:100%;font-family:'Open Sans',sans-serif}.banner-slider{height:520px}.banner-slider .carousel-inner .item{opacity:0}.banner-slider .carousel-inner .active{opacity:1}.banner-slider .banner-content{position:relative;z-index:2;top:50%;transform:translate(0,-50%)}.banner-slider .banner-text{width:100%;position:relative;padding-top:0;padding-bottom:0}.banner-slider .fill{width:100%;height:100%;background-position:center center;background-size:cover}.banner .banner-text:not(.dark){color:#fff}.banner .more-cta:not(:first-child){margin-top:30px}.quotes{margin-top:60px}.quotes:first-child{margin-top:0}.quotes .quotes-text{padding:30px 0;font-size:1.125em}.quotes .profile{position:relative;margin-top:30px}.center .quotes .profile{text-align:center}.quotes .profile h5{font-weight:700;font-size:16px;margin-top:15px;margin-bottom:5px}.quotes-slider .quotes-text{padding-right:-10px;font-family:'Open Sans',sans-serif}.feature{overflow:hidden;position:relative;transform-style:preserve-3d;background:transparent}.feature .fbox-photo{margin-top:20px}.feature .fbox-photo:first-child{margin-top:0}.feature .fbox-photo{-ms-border-radius:0px;border-radius:0px;position:relative;overflow:hidden;transform-style:preserve-3d}.feature .fbox-photo img{margin:0;width:100%;height:auto;border-radius:0}.feature .fbox-photo::after{content:"";position:absolute;top:0;left:0;bottom:0;right:0;background:#014FB4;opacity:0;z-index:0}.feature>a{display:block}.feature.feature-s6{-ms-border-radius:0px;border-radius:0px;border:1px solid rgba(0,0,0,0.07);transform:translate(0,0)}.feature.feature-s6 .fbox-photo{border-radius:0px 0px 0 0}@media only screen and (max-width:1199px){body{font-size:15px}.navbar-nav>li>a{font-size:13px}.header-s1 .navbar-nav>li>a{padding-left:9px;padding-right:9px}.banner-text{font-size:14px}.banner-slider .banner-text{max-width:480px}.banner-slider .banner-text{font-size:15px}}@media only screen and (max-width:991px){body{font-size:14px;-webkit-text-size-adjust:100%}.container{max-width:720px}.section-pad{padding-top:50px;padding-bottom:50px}.top-contact .t-phone span{font-size:1em}.header-top{margin-top:15px}.header-top>*{margin-left:20px}.header-top>*:first-child{margin-left:0}.header-top .top-contact .fa{font-size:14px}.header-top .quote-btn .btn{padding:7px 12px;font-size:12px;letter-spacing:inherit}.header-s1 .navbar-collapse{margin-top:10px}.header-s1 .navbar{padding-top:10px}.header-s1 .header-top{margin-top:0}.header-s1 .top-contact li{margin-left:20px}.site-header .navbar-brand img{max-height:40px}.banner-text .page-title,.banner-text.style-modern .page-title{font-size:1.75em}.banner-text.style-modern{font-size:16px}.banner-slider{height:400px}.banner-slider .banner-content{padding-top:20px;padding-bottom:20px}.banner-slider .carousel-control{display:none;opacity:0}.quotes{margin-top:30px}.quotes:first-child{margin-top:0}}@media only screen and (min-width:768px) and (max-width:991px){.navbar-nav>li>a{font-size:11px;padding:15px 8px}.header-s1 .navbar-nav>li>a{font-size:10px;letter-spacing:-0.03em;padding:12px 7px}.header-s1 .navbar-collapse::after{height:44px}.banner-slider .banner-text{max-width:390px}}@media only screen and (max-width:767px){.container{padding-left:30px;padding-right:30px;max-width:100%}div[class*="row-column"]>[class*='col-']{width:100%}.row-column>[class*='col-']:not(.col-xs-6):not(:first-child){margin-top:16px}.top-contact li{margin-left:12px;display:inline-block;float:none;vertical-align:middle}.top-contact li:first-child{margin-left:0}.header-top .top-contact .fa{font-size:16px}.navbar-toggle{float:left;margin-top:8px;margin-bottom:8px;padding:10px 12px;background-color:#014FB4}.navbar-toggle .icon-bar{background-color:#fff}.navbar-header{background:#014FB4;clear:both;width:100%;padding:0 15px}.navbar-nav{margin:0;float:none;padding-bottom:20px;text-align:left;border-top:1px solid rgba(1,79,180,0.1)}.header-s1 .navbar-nav>li>a{padding-top:10px;padding-bottom:10px}.navbar-nav li{border-bottom:1px solid rgba(1,79,180,0.1)}.navbar-nav li a{padding:10px 15px;font-size:14px;font-weight:400;color:#596570;position:relative}.navbar-nav li ul{position:static;background:none;width:100%;display:none;opacity:1!important;visibility:visible!important;box-shadow:none;text-align:left;float:none;margin-top:0}.navbar-nav li ul li{border-bottom:0 none}.navbar-nav li ul li a{padding:8px 15px 9px;font-size:13px;color:#596570;font-weight:400}.navbar-nav>li>ul>li{border-top:1px solid rgba(89,101,112,0.1)}.site-header .navbar-header{float:left;margin:5px 0 0}.site-header .navbar-collapse{float:none;text-align:center}.header-s1 .navbar-brand{margin-top:3px;margin-bottom:8px;width:auto;max-width:150px}.header-s1 .navbar-brand img{margin:0 auto}.header-s1 .navbar-header .quote-btn{display:block;float:right;margin:6px 0}.header-s1 .navbar-nav{border-top:0}.header-s1 .navbar>.container .navbar-brand{margin-left:15px}.header-s1 .header-top{margin:0 5px 0 0;float:right;width:48%;text-align:right}.header-s1 .header-top>*{float:none;margin:0 15px;display:inline-block}.header-s1 .header-top .top-contact{line-height:32px}.header-s1 .header-top .top-contact span{font-weight:600}.header-s1 .header-top .quote-btn,.header-s1 .header-top .top-contact .t-phone:not(:first-child){display:none}.header-s1 .navbar-toggle{margin-left:-12px;border-color:transparent}.header-s1 .navbar-collapse{background:#fff}.header-s1 .navbar-collapse::after{display:none}.header-s1 .navbar-collapse>ul.nav{width:100%}.section-pad{padding-top:50px;padding-bottom:50px}.banner-text{font-size:11px}.banner-text .btn{padding:10px 16px;font-size:12px;letter-spacing:0}.banner-text .btn+.btn{margin-left:10px}.banner .more-cta:not(:first-child){margin-top:15px}.banner-slider{height:320px}.banner-slider .banner-text{font-size:12px}}@media only screen and (max-width:599px){.header-s1{border-top:3px solid #2a2d33}.header-s1 .navbar-toggle+div.quote-btn{display:inline-block;float:right;margin:8px 0}.header-s1 .quote-btn .btn{padding:4px 12px;font-size:9px;-ms-border-radius:2px;border-radius:2px}.header-s1 .top-contact span small{font-size:9px}.header-s1 .top-contact .t-phone{line-height:16px}}@media only screen and (max-width:480px){body{min-width:320px}.banner-text{font-size:12px}.banner-text .btn{padding:8px 12px;font-size:11px}.banner-text .page-title{font-size:1.375em}.banner-text p:not(.more-cta){padding-right:50px}.banner-text.pos-right{float:left}.banner-slider{height:230px}.banner-slider .banner-text:not(.banner-boxed){width:100%;max-width:340px}.banner-slider .banner-content{top:100%;transform:translate(0,-100%)}.banner-slider .banner-content:after{display:block;opacity:1;content:"";position:absolute;bottom:0;left:0;right:0;top:20%;z-index:0;background:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,0.75) 100%)}.carousel-control .glyphicon-chevron-left,.carousel-control .glyphicon-chevron-right{height:45px;width:45px;font-size:24px}}@media only screen and (max-width:375px){.btn+.btn{margin-top:5px}h2{font-size:1.5em}.banner-slider .banner-text{font-size:10px}.banner-slider .banner-text p:not(.more-cta){padding-right:25px}}.header-s1 .navbar-collapse::after{bottom:0}.fa,.fab{-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;display:inline-block;font-style:normal;font-variant:normal;text-rendering:auto;line-height:1}.fa-phone:before{content:"\f095"}.fa-whatsapp:before{content:"\f232"}.sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}@font-face{font-display:swap;font-family:"Font Awesome 5 Brands";font-style:normal;font-weight:normal;src:url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-brands-400.eot);src:url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-brands-400.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-brands-400.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-brands-400.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-brands-400.svg#fontawesome) format("svg")}.fab{font-family:"Font Awesome 5 Brands"}@font-face{font-display:swap;font-family:"Font Awesome 5 Free";font-style:normal;font-weight:400;src:url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-regular-400.eot);src:url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-regular-400.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-regular-400.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-regular-400.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-regular-400.svg#fontawesome) format("svg")}@font-face{font-display:swap;font-family:"Font Awesome 5 Free";font-style:normal;font-weight:900;src:url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-solid-900.eot);src:url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-solid-900.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-solid-900.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-solid-900.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.5.0/webfonts/fa-solid-900.svg#fontawesome) format("svg")}.fa{font-family:"Font Awesome 5 Free"}.fa{font-weight:900}</style><link rel="preload" as="style" href="./Yamir Sıhhi Tesisat_files/css"><link rel="stylesheet" href="./Yamir Sıhhi Tesisat_files/css" media="all" onload="this.media=&#39;all&#39;"><noscript><link rel="preload" href="https://fonts.googleapis.com/css?family=Exo%202%3A400%2C500%2C600%2C700%2C300&#038;subset=latin%2Clatin-ext&#038;display=swap" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" /></noscript><link rel="preload" as="style" href="./Yamir Sıhhi Tesisat_files/css2"><link rel="stylesheet" href="./Yamir Sıhhi Tesisat_files/css2" media="all" onload="this.media=&#39;all&#39;"><noscript><link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&#038;family=Poppins:wght@100&#038;display=swap" data-rocket-async="style" as="style" onload="this.onload=null;this.rel='stylesheet'" /></noscript><link rel="preload" href="https://www.domaineklenecek.com/wp-content/cache/min/1/ee14bb59812ce99d179c021e607bd77b.css" data-rocket-async="style" as="style" onload="this.onload=null;this.rel=&#39;stylesheet&#39;" media="all" data-minify="1">
+<meta name="description" content="Su Kaçağı Tespiti Eymir Su Tesisatçısı Ya-Mir Tesisat ile Eymir ve Mahallelerinde Kombi Arıza Su Kaçağı Tespit İşlemlerinde En Hızlı ve Güvenilir Firmalardan Birisidir.">
+<meta name="robots" content="follow, index, max-snippet:-1, max-video-preview:-1, max-image-preview:large">
+<link rel="canonical" href="https://www.domaineklenecek.com/">
+<link rel="next" href="https://www.domaineklenecek.com/page/2/">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Su Kaçağı Tespiti Eymir | Su Tesisatçısı | Ya-Mir Tesisat">
+<meta property="og:description" content="Su Kaçağı Tespiti Eymir Su Tesisatçısı Ya-Mir Tesisat ile Eymir ve Mahallelerinde Kombi Arıza Su Kaçağı Tespit İşlemlerinde En Hızlı ve Güvenilir Firmalardan Birisidir.">
+<meta property="og:url" content="https://www.domaineklenecek.com/">
+<meta property="og:site_name" content="Ya-Mir Tesisat">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Su Kaçağı Tespiti Eymir | Su Tesisatçısı | Ya-Mir Tesisat">
+<meta name="twitter:description" content="Su Kaçağı Tespiti Eymir Su Tesisatçısı Ya-Mir Tesisat ile Eymir ve Mahallelerinde Kombi Arıza Su Kaçağı Tespit İşlemlerinde En Hızlı ve Güvenilir Firmalardan Birisidir.">
+<script type="application/ld+json" class="rank-math-schema">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.domaineklenecek.com/#organization","name":"Su Ka\u00e7a\u011f\u0131 Tespiti \u0130stanbul | Su Tesisat\u00e7\u0131s\u0131 | Ya-Mir Tesisat"},{"@type":"WebSite","@id":"https://www.domaineklenecek.com/#website","url":"https://www.Ya-Mirtesisat.com","name":"Su Ka\u00e7a\u011f\u0131 Tespiti \u0130stanbul | Su Tesisat\u00e7\u0131s\u0131 | Ya-Mir Tesisat","publisher":{"@id":"https://www.domaineklenecek.com/#organization"},"inLanguage":"tr","potentialAction":{"@type":"SearchAction","target":"https://www.domaineklenecek.com/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ImageObject","@id":"https://www.domaineklenecek.com/wp-content/uploads/2021/11/sorgun.jpg","url":"https://www.domaineklenecek.com/wp-content/uploads/2021/11/sorgun.jpg","width":"768","height":"439","caption":"sorgun","inLanguage":"tr"},{"@type":"CollectionPage","@id":"https://www.domaineklenecek.com/#webpage","url":"https://www.domaineklenecek.com/","name":"Su Ka\u00e7a\u011f\u0131 Tespiti \u0130stanbul | Su Tesisat\u00e7\u0131s\u0131 | Ya-Mir Tesisat","about":{"@id":"https://www.domaineklenecek.com/#organization"},"isPartOf":{"@id":"https://www.domaineklenecek.com/#website"},"primaryImageOfPage":{"@id":"https://www.domaineklenecek.com/wp-content/uploads/2021/11/sorgun.jpg"},"inLanguage":"tr"}]}</script>
+<meta name="google-site-verification" content="56_KA1DOIGFmdTPusakbTZ05E50GAV_56E2bb0LkT6A">
+<!-- /Rank Math WordPress SEO eklentisi -->
+
+<link rel="dns-prefetch" href="https://ajax.googleapis.com/">
+<link href="https://fonts.gstatic.com/" crossorigin="" rel="preconnect">
+<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	
+
+<link rel="https://api.w.org/" href="https://www.domaineklenecek.com/wp-json/"><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.domaineklenecek.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.domaineklenecek.com/wp-includes/wlwmanifest.xml"> 
+<link rel="icon" href="https://www.domaineklenecek.com/wp-content/uploads/2020/09/cropped-favicon-32x32.png" sizes="32x32">
+<link rel="icon" href="https://www.domaineklenecek.com/wp-content/uploads/2020/09/cropped-favicon-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="https://www.domaineklenecek.com/wp-content/uploads/2020/09/cropped-favicon-180x180.png">
+<meta name="msapplication-TileImage" content="https://www.domaineklenecek.com/wp-content/uploads/2020/09/cropped-favicon-270x270.png">
+		<style type="text/css" id="wp-custom-css">
+			#mobil-sabit-menu ul {
+                background: #fff;
+            }
+            #mobil-sabit-menu ul li:first-child {
+                background: red;
+                width: 50%;
+            }
+            #mobil-sabit-menu ul li:first-child a {
+                color: #fff;
+            }
+            #mobil-sabit-menu ul li:last-child {
+                background: #4dc247;
+                width: 50%;
+            }
+            #mobil-sabit-menu ul li:last-child a {
+                color: #fff;
+            }
+
+
+ @media (min-width: 768px) {
+                #mobil-sabit-menu {
+                    display: none;
+                }
+            }
+
+
+#mobil-sabit-menu {
+                box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
+                position: fixed;
+                width: 100%;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: #fff;
+                z-index: 1;
+                text-align: center;
+            }
+            #mobil-sabit-menu ul {
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                overflow: auto;
+                white-space: nowrap;
+                display: flex;
+            }
+            #mobil-sabit-menu li {
+                flex: auto;
+                min-width: fit-content;
+                border-right: 1px solid #eee;
+                padding: 5px 16px;
+            }
+            #mobil-sabit-menu li:last-child {
+                border: none;
+            }
+            #mobil-sabit-menu a {
+                display: block;
+                color: #000;
+                font-size: 16px;
+                line-height: 36px;
+                text-align: center;
+                min-width: 48px;
+                font-weight: 700;
+            }
+            #mobil-sabit-menu a:hover {
+                text-decoration: none;
+            }
+           #mobil-sabit-menu img {
+    margin-right: 3px;
+    margin-top: 3px;
+}		</style>
+		<script>
+/*! loadCSS rel=preload polyfill. [c]2017 Filament Group, Inc. MIT License */
+(function(w){"use strict";if(!w.loadCSS){w.loadCSS=function(){}}
+var rp=loadCSS.relpreload={};rp.support=(function(){var ret;try{ret=w.document.createElement("link").relList.supports("preload")}catch(e){ret=!1}
+return function(){return ret}})();rp.bindMediaToggle=function(link){var finalMedia=link.media||"all";function enableStylesheet(){link.media=finalMedia}
+if(link.addEventListener){link.addEventListener("load",enableStylesheet)}else if(link.attachEvent){link.attachEvent("onload",enableStylesheet)}
+setTimeout(function(){link.rel="stylesheet";link.media="only x"});setTimeout(enableStylesheet,3000)};rp.poly=function(){if(rp.support()){return}
+var links=w.document.getElementsByTagName("link");for(var i=0;i<links.length;i++){var link=links[i];if(link.rel==="preload"&&link.getAttribute("as")==="style"&&!link.getAttribute("data-loadcss")){link.setAttribute("data-loadcss",!0);rp.bindMediaToggle(link)}}};if(!rp.support()){rp.poly();var run=w.setInterval(rp.poly,500);if(w.addEventListener){w.addEventListener("load",function(){rp.poly();w.clearInterval(run)})}else if(w.attachEvent){w.attachEvent("onload",function(){rp.poly();w.clearInterval(run)})}}
+if(typeof exports!=="undefined"){exports.loadCSS=loadCSS}
+else{w.loadCSS=loadCSS}}(typeof global!=="undefined"?global:this))
+</script><link href="./Yamir Sıhhi Tesisat_files/jquery.bundle.js.indir" rel="preload" as="script"><link href="./Yamir Sıhhi Tesisat_files/ek.js.indir" rel="preload" as="script"><link href="./Yamir Sıhhi Tesisat_files/jquery.min.js.indir" rel="preload" as="script"><link href="./Yamir Sıhhi Tesisat_files/jquery.colorbox-min.js.indir" rel="preload" as="script"><link href="./Yamir Sıhhi Tesisat_files/scripts.js.indir" rel="preload" as="script"><link rel="prefetch" href="https://www.domaineklenecek.com/"></head>
+<body data-rsssl="1" class="site-body style-v1 no-touch" cz-shortcut-listen="true">
+	<!-- Header -->
+	<header class="site-header header-s1 is-sticky">
+		<!-- Navbar -->
+		<div class="navbar navbar-primary">
+			<div class="container">
+				<!-- Logo -->
+				<a class="navbar-brand" href="https://www.domaineklenecek.com/">
+					<img class="logo logo-dark" alt="" src="https://i.imgur.com/gLpaHA6.png" srcset="/yamirlogo>
+					
+				</a>
+				<!-- #end Logo -->
+				<!-- HeaderTop -->
+				<div class="header-top">
+					<ul class="top-contact">
+						<li class="t-phone t-phone1 t-phone-s2">
+							<span><small><em class="color-secondary">7/24</em> TELEFON NUMARASI</small> <em class="fa fa-phone" aria-hidden="true"></em> <a href="tel:0(532) 393 82 65">0 532 393 82 65</a></span>
+						</li>
+						<li class="t-phone t-phone1 t-phone-s2">
+							<span><small>WHATSAPP İLETİŞİM  </small> <i class="fab fa-whatsapp" style="
+    color: #35d800;
+"></i> <a href="https://wa.me/+905323938265">0 532 393 82 65</a></span>
+						</li>
+						<li class="quote-btn"><a href="https://www.domaineklenecek.com/iletisim" class="btn">Yozgat Sorgun / Eymir</a></li>
+					</ul>
+				</div>
+				<!-- #end HeaderTop -->
+				<!-- NavBar Trigger -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainnav" aria-expanded="false">
+						<span class="sr-only">Menu</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- Q-Button for Mobile -->
+					<div class="quote-btn"><a class="btn" href="https://www.domaineklenecek.com/iletisim"><span><i class="fab fa-whatsapp" style="
+    color: #fff;
+"></i> Whatsapp Destek</span></a></div>
+				</div>
+				<!-- #end Trigger -->
+				<!-- MainNav -->
+				<nav class="navbar-collapse collapse" id="mainnav">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="https://www.domaineklenecek.com/">Anasayfa</a>
+							
+						</li>
+					<li><a href="https://www.domaineklenecek.com/hakkimizda">Hakkımızda</a></li>
+						<li class="has-children">
+							<a href="https://www.domaineklenecek.com/hizmetlerimiz">Hizmetlerimiz</a>
+							<ul>								<li><a href="https://www.domaineklenecek.com/kombi-bakim/"> İç-Dış Tesisat Döşeme</a></li>								<li><a href="https://www.domaineklenecek.com/kalorifer-montaj/">Kalorifer Montaj</a></li>								<li><a href="https://www.domaineklenecek.com/dogalgaz-montaj/">Duşakabin Montaj</a></li>								<li><a href="https://www.domaineklenecek.com/klozet-montaj/">Klozet Montaj</a></li>								<li><a href="https://www.domaineklenecek.com/petek-temizleme/">Petek Temizleme</a></li>								<li><a href="https://www.domaineklenecek.com/tikaniklik-acma/">Tıkanıklık Açma</a></li>								<li><a href="https://www.domaineklenecek.com/kamerayla-su-kacagi/">Kamerayla Su Kaçağı</a></li>								<li><a href="https://www.domaineklenecek.com/klozet-ic-takim-tamiri/">Klozet İç Takım Tamiri</a></li>								<li><a href="https://www.domaineklenecek.com/musluk-tamiri/">Musluk Tamiri</a></li>								<li><a href="https://www.domaineklenecek.com/su-tesisatcisi-istanbul/">Su Tesisatçısı Eymir</a></li>								
+								
+							</ul>
+						</li>
+						
+						
+						
+						
+						<li class="has-children">
+							<a href="https://www.domaineklenecek.com/hizmet-bolgeleri">Hizmet Bölgeleri</a>
+							<ul>								<li><a href="https://www.domaineklenecek.com/akocak-su-kacagi-tespiti/">Akocak Su Kaçağı Tespiti</a></li>								<li><a href="https://www.domaineklenecek.com/kayakisla-su-kacagi-tespiti/">Kayakışla Su Kaçağı Tespiti</a></li>								<li><a href="https://www.domaineklenecek.com/avcilar-su-kacagi-tespiti/">Tulum Su Kaçağı Tespiti</a></li>								<li><a href="https://www.domaineklenecek.com/Yaylalık-su-kacagi-tespiti/">Yaylalık Su Kaçağı Tespiti</a></li>								<li><a href="https://www.domaineklenecek.com/sorgun-su-kacagi-tespiti/">Sorgun Su Kaçağı Tespiti</a></li>								
+								
+							</ul>
+						</li>
+						
+						
+						<li><a href="https://www.domaineklenecek.com/musteri-yorumlari">Müşteri Yorumları</a></li>
+						<li><a href="https://www.domaineklenecek.com/galeri">Galeri</a></li>
+						<li><a href="https://www.domaineklenecek.com/referanslar">Referanslar</a></li>
+						<li><a href="https://www.domaineklenecek.com/blog">Blog</a></li>
+						<li><a href="https://www.domaineklenecek.com/iletisim">İletişim</a></li>
+					</ul>
+				</nav>
+				<!-- #end MainNav -->
+			</div>
+		</div>
+		<!-- #end Navbar -->
+		
+	</header>
+	<!-- End Header --><!-- Banner/Slider -->
+		<div id="slider" class="banner banner-slider carousel slide carousel-fade">
+			<!-- Wrapper for Slides -->
+			<div class="carousel-inner">
+				<!-- // -->
+				<div class="item">
+					<div class="fill" style="background-image:url(https://i.imgur.com/iPdUqd9.jpeg);">
+						<div class="banner-content">
+							<div class="container">
+								<div class="row">
+									<div class="banner-text style-modern al-left pos-left light">
+										<div class="animated fadeIn">
+											<h3 class="page-title" style="color: rgb(255, 255, 255);">TERMAL KAMERAYLA<br>SU KAÇAĞI</h3>
+<p style="color: #ffffff;">Su kaçağı problemi günümüzde özellikle de eski yapılar içerisinde sürekli olarak karşımıza çıkan bir sorundur.</p>
+
+<p class="more-cta"><a href="https://www.domaineklenecek.com/hizmetlerimiz" class="btn btn-light btn-outline" style="background-color: #084cb4;">HİZMETLER</a><a href="https://wa.me/+905323938265" class="btn btn-alt">0532 393 82 65</a></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- // -->
+				<div class="item active">
+					<div class="fill" style="background-image:url(https://i.imgur.com/Qz2Zo8g.jpeg);">
+						<div class="banner-content">
+							<div class="container">
+								<div class="row">
+									<div class="banner-text style-modern al-left pos-right light">
+											<h3 class="page-title" style="color: rgb(255, 255, 255);">UZMAN EKİP<br>SİZİN İÇİN VARIZ</h3>
+											<p style="color: #ffffff;">Eymir Kasabası yakınlarında, Sorgun, Akocak, Kayakışla, Tulum, başta olmak üzere tüm Eymir genelinde bizlere ulaşabilirsiniz.</p>
+											<p class="more-cta"><a href="https://www.domaineklenecek.com/hizmetlerimiz" class="btn btn-light btn-outline" style="background-color: #084cb4;">HİZMETLER</a><a href="https://wa.me/+905323938265" class="btn btn-alt">0532 393 82 65</a></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- // -->
+			</div>
+			<!-- Arrow Controls -->
+			<a class="left carousel-control" href="https://www.domaineklenecek.com/#slider" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="https://www.domaineklenecek.com/#slider" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+		<!-- #end Banner/Slider -->
+
+<div class="section section-services section-pad">
+	
+		<div class="container">
+			<center><h5 class="heading-sm-lead">Ya-Mir Tesisat</h5>
+						<h2 style="
+    font-weight: 700;
+    margin-bottom: 25px;
+">HİZMETLERİMİZ</h2></center>
+			<div class="content row">
+				<!-- Feature Row  -->
+				<div class="row row-feature row-column">
+					
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/kombi-bakim/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/b0laOSJ.png" alt=" İç-Dış Tesisat Döşeme" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3> İç-Dış Tesisat Döşeme</h3>
+									<p>  </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/kalorifer-montaj/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/4SmWgdg.jpeg" alt="Kalorifer Montaj" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3>Kalorifer Montaj</h3>
+									<p> </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/dogalgaz-montaj/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/CIJ97rY.png" alt="Duşakabin Montaj" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3>Duşakabin Montaj</h3>
+									<p> </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/klozet-montaj/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/1cXygFR.jpeg" alt="Klozet Montaj" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3>Klozet Montaj</h3>
+									<p> </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/petek-temizleme/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/PCwFQbE.jpeg" alt="Petek Temizleme" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3>Petek Temizleme</h3>
+									<p> </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/tikaniklik-acma/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/6wul5LH.jpeg" alt="Tıkanıklık Açma" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3>Tıkanıklık Açma</h3>
+									<p> </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/kamerayla-su-kacagi/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/9K8mFQL.jpeg" alt="Kamerayla Su Kaçağı" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3>Kamerayla Su Kaçağı</h3>
+									<p> </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/klozet-ic-takim-tamiri/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/AFX4Ips.jpeg" alt="Klozet İç Takım Tamiri" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3>Klozet İç Takım Tamiri</h3>
+									<p> </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+										<div class="col-md-4 col-sm-4">
+					    
+						<!-- feature box -->
+						<div class="feature feature-s6 boxed">
+							<a href="https://www.domaineklenecek.com/musluk-tamiri/">
+								<div class="fbox-photo">
+								<img src="https://i.imgur.com/Oa3iXAO.jpeg" alt="Musluk Tamiri" width="360" height="203">								</div>
+								<div class="fbox-content">
+									<h3>Musluk Tamiri</h3>
+									<p> </p>
+									<span class="btn-link link-arrow">Hizmet Detayları</span>
+								</div>
+							</a>
+						</div>
+						<!-- End Featur box -->
+					</div>
+									</div>
+				<!-- Feture Row  #end -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Content -->
+	<div class="section section-content section-pad bg-light">
+		<div class="container">
+			<div class="content row">
+
+				<div class="row">
+					<div class="col-md-8 col-sm-12 pad-r-md res-m-bttm-lg">
+						<h2>EYMİR KASABASI SU TESİSATÇISI
+</h2>
+						<p>Eymir Kasabası yakınlarında, Sorgun, Akocak, Kayakışla, Tulum, başta olmak üzere tüm Eymir genelinde bizlere ulaşabilirsiniz.</p>
+						<h3> MÜŞTERİ MEMNUNİYETİ
+</h3>
+						<p>
+
+
+</p>
+						<p>Önceliğimiz sizlerin memnuniyetiniz ilkesiyle %100 müşteri memnuniyetiyle, garantili hizmet anlayışıyla ve en iyi fiyat garantisiyle Eymir'de hizmet vermekteyiz.
+
+</p>
+						<p><a href="https://www.domaineklenecek.com/hizmetlerimiz" class="btn btn-primary">Hizmetlerimiz</a></p>
+					</div>
+					<div class="col-md-4 col-sm-12">
+						<div class="wgs-box wgs-quoteform has-bg light light-filter has-bg-image">
+							
+							<div class="wgs-content">
+													
+					
+							</div>
+							<div class="wgs-image-bg imagebg bg-image-loaded" style="background-image: url(&quot;https://i.imgur.com/EFw1jPY.jpeg&quot;);">
+								<img src="https://i.imgur.com/EFw1jPY.jpeg" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+<div class="section section-content section-pad bg-light">
+		<div class="container">
+			<div class="content row">
+	        	<!-- Feature Row  -->
+				<div class="row row-feature row-column">
+					
+
+<div class="col-md-3 col-sm-3">
+						<!-- featured box -->
+	
+						<div class="feature boxed center">
+							<a href="https://www.domaineklenecek.com/sorgun-tesisatci/">
+								<div class="fbox-photo">
+									<img src="https://i.imgur.com/h3rTgPt.jpeg" alt="Sorgun Tesisatçı" width="360" height="203">								</div>
+							</a>
+							<div class="fbox-content">
+								<h3 class="lead"><a href="https://www.domaineklenecek.com/sorgun-tesisatci/">Sorgun Tesisatçı</a></h3>
+							<p>Su Kaçağı Tespiti Eymir Su Tesisatçısı Ya-Mir Tesisat ile Eymir ve Mahallelerinde...</p>
+								<p><a href="https://www.domaineklenecek.com/sorgun-tesisatci/" class="btn">Hizmet Detayları</a></p>
+							</div>
+						</div>
+	
+	
+						<!-- End Feature box -->
+					</div>
+						<div class="col-md-3 col-sm-3">
+						<!-- featured box -->
+	
+						<div class="feature boxed center">
+							<a href="https://www.domaineklenecek.com/akocak-su-tesisatcisi/">
+								<div class="fbox-photo">
+									<img src="https://i.imgur.com/Uxg2YpG.jpeg" alt="Akocak Su Tesisatçısı" width="360" height="203">								</div>
+							</a>
+							<div class="fbox-content">
+								<h3 class="lead"><a href="https://www.domaineklenecek.com/akocak-su-tesisatcisi/">Akocak Su Tesisatçısı</a></h3>
+							<p>Su Kaçağı Tespiti Eymir Su Tesisatçısı Ya-Mir Tesisat ile Eymir ve Mahallelerinde...</p>
+								<p><a href="https://www.domaineklenecek.com/akocak-su-tesisatcisi/" class="btn">Hizmet Detayları</a></p>
+							</div>
+						</div>
+	
+	
+						<!-- End Feature box -->
+					</div>
+						<div class="col-md-3 col-sm-3">
+						<!-- featured box -->
+	
+						<div class="feature boxed center">
+							<a href="https://www.domaineklenecek.com/sorgun-su-tesisatcisi/">
+								<div class="fbox-photo">
+									<img src="https://i.imgur.com/h3rTgPt.jpeg" alt="Sorgun Su Tesisatçısı" width="360" height="203">								</div>
+							</a>
+							<div class="fbox-content">
+								<h3 class="lead"><a href="https://www.domaineklenecek.com/sorgun-su-tesisatcisi/">Tulum Su Tesisatçısı</a></h3>
+							<p>Su Kaçağı Tespiti Eymir Su Tesisatçısı Ya-Mir Tesisat ile Eymir ve Mahallelerinde...</p>
+								<p><a href="https://www.domaineklenecek.com/sorgun-su-tesisatcisi/" class="btn">Hizmet Detayları</a></p>
+							</div>
+						</div>
+	
+	
+						<!-- End Feature box -->
+					</div>
+						<div class="col-md-3 col-sm-3">
+						<!-- featured box -->
+	
+						<div class="feature boxed center">
+							<a href="https://www.domaineklenecek.com/kayakisla-su-tesisatcisi/">
+								<div class="fbox-photo">
+									<img src="https://i.imgur.com/XrnTTe1.jpeg" alt="Kayakışla Su Tesisatçısı" width="360" height="203">								</div>
+							</a>
+							<div class="fbox-content">
+								<h3 class="lead"><a href="https://www.domaineklenecek.com/kayakisla-su-tesisatcisi/">Kayakışla Su Tesisatçısı</a></h3>
+							<p>Su Kaçağı Tespiti Eymir Su Tesisatçısı Ya-Mir Tesisat ile Eymir ve Mahallelerinde...</p>
+								<p><a href="https://www.domaineklenecek.com/kayakisla-su-tesisatcisi/" class="btn">Hizmet Detayları</a></p>
+							</div>
+						</div>
+	
+	
+						<!-- End Feature box -->
+					</div>
+											
+				</div>
+				<!-- Feture Row  #end -->
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	<!-- Call Action -->
+	<div class="call-action cta-small has-parallax bg-secondary" style="background-image: url(&quot;https://www.domaineklenecek.com/wp-content/uploads/2020/09/plx-dark-1.jpg&quot;); background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-position: center 4213.49px;">
+		<div class="cta-block">
+			<div class="container">
+				<div class="content row">
+
+					<div class="wide-md center">
+						<p class="lead">Söz verdiğimiz gibi 25 Dk.da kapınızdayız. 
+</p>
+						<h2 class="heading-lead">7 GÜN 24 SAAT ACİL SU TESİSATÇINIZ
+
+</h2>
+						<div class="gaps size-xs"></div>
+						<a href="https://www.domaineklenecek.com/#" class="btn btn-light btn-alt">0 532 393 82 65</a>
+					</div>
+					
+				</div>				
+			</div>
+		</div>
+	</div>
+	<!-- End Call Action -->
+	
+	<!-- Content -->
+	<div class="section section-content section-pad bg-light">
+		<div class="container">
+			<div class="content row">
+
+				<div class="row row-vm">
+					<div class="col-sm-6 res-s-bttm pad-r">
+					</div>
+					<div class="col-sm-6 pad-l">
+						<h5 class="heading-sm-lead">Ya-Mir Tesisat</h5>
+						<h2>Tüm tesisat ve bakım ihtiyaçlarınız <br>için garantili çözümün adresi</h2>
+						<p>Önceliğimiz sizlerin memnuniyetiniz" ilkesiyle %100 müşteri memnuniyetiyle, garantili hizmet anlayışıyla ve en iyi fiyat garantisiyle Eymir Kasabası ve civar köylerde hizmet vermekteyiz.
+
+</p>
+						<a href="https://www.domaineklenecek.com/hakkimizda" class="btn-link link-arrow-sm">Hakkımızda</a>
+					</div>
+				</div>
+				<!-- // -->
+				<div class="gaps size-lg"></div>
+				<div class="row">
+					<div class="col-sm-4 res-s-bttm">
+						<div class="bg-white pd-x3 center">
+							<div class="icon-box style-s2 size-md">
+								<em class="fa fa-users"></em>
+							</div>
+							<h4>Kurumsal Kimlik</h4>
+							<p>Müşterilerimizle  Cömert ve Empatik İlişkiler Kurarak; Çevik, Güvenilir, İleri Görüşlü, Deneyimli ve Sertifikalı Uzman Personelimiz ile Uygun Fiyatlarla Hızlı Çözümler Üretmeyi Hedefliyoruz… 
+							</p>
+						</div>
+					</div>
+					<!-- // -->
+					<div class="col-sm-4 res-s-bttm">
+						<div class="bg-white pd-x3 center">
+							<div class="icon-box style-s2 size-md">
+								<em class="fa fa-trophy"></em>
+							</div>
+							<h4>Misyonumuz
+</h4>
+							<p>Tesisat Uzmanınız Deneyimli Personeliyle Müşteri Memnuniyetini Ön Planda Tutarak Tesisat Sorunlarınıza Çözüm Yolları Arayan ve Çözüme Kavuşturan  Kaliteli Tesisat Firmadır…
+							</p>
+						</div>
+					</div>
+					<!-- // -->
+					<div class="col-sm-4">
+						<div class="bg-white pd-x3 center">
+							<div class="icon-box style-s2 size-md">
+								<em class="fa fa-support"></em>
+							</div>
+							<h4>Vizyonumuz</h4>
+							<p> Tesisat Uzmanınız Sürekli gelişmeyi, Evrensel Kalitede Ürün ve Hizmetler Sunarak Müşterilerini Memnun Etmeyi Amaçlar. Müşterileri için Güvenilirlik ve  Saygınlık Simgesi Olmayı Hedefler…
+
+
+							</p>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- End Content -->
+
+	<!-- Testimonials -->
+	<div class="section section-quotes section-pad has-bg dark-filter light has-bg-image">
+		<div class="container">
+			<div class="content row">
+				<h2 class="center">Müşteri Yorumları</h2>
+				<div class="testimonials style-v1">
+					<div id="testimonial" class="quotes-slider wide-sm">
+						<div class="owl-carousel loop has-carousel owl-theme owl-hidden owl-loaded" data-items="1" data-loop="true" data-dots="true" data-auto="true" data-navs="false" style="">
+							
+							<!-- End Slide -->
+							<!-- Each Slide -->
+							
+						<div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-5799px, 0px, 0px); transition: all 0.7s ease 0s; width: 11598px;"><div class="owl-item cloned" style="width: 1903px; margin-right: 30px;"><div class="item center">
+								<!-- Each Quotes -->
+								<div class="quotes">
+									<div class="quotes-text">
+										<p>Benim evde uzak petekler neredeyse hiç isinmiyordu ve bende sitenizdeki bilgileri okuduğumda sebebinin peteklerin şimdiye kadar hiç temizlenmemiş olması olabileceğini düşündüğümden petek temizliği yaptırmak istedim bunun için de sizin firmanızı tercih ettim. Temizlik işlemi tamamlandığımda gördüm ki benim ev daha önce ısınmıyormuş; evde resmen ısı devrimi gerçekleşti ? Bu kadar fark yaratacağını düşünmüyordum, benzer sorunu olanlara şiddetle tavsiye ederim. Firmanıza da teşekkür ederim.
+</p>
+									</div>
+									<div class="profile">
+										<h5>Ahmet AKMAN - Müşteri</h5>
+									</div>
+								</div>
+								<!-- End Quotes -->
+							</div></div><div class="owl-item cloned" style="width: 1903px; margin-right: 30px;"><div class="item center">
+								<!-- Each Quotes -->
+								<div class="quotes">
+									<div class="quotes-text center">
+										<p>Öncelikle Ya-Mir tesisat ve ekibine çok teşekkür ediyorum. Kalorifer tesisatımızdaki sorunu temizledikten sonra çözemeyip,üstüne üstlük kombi ile kollektör arasındaki alanı kırıp tıkanıklığı bu şekilde bulmaktan başka çare olmadığını söyleyen tesisatçının tam tersine Tesisat Uzmaniniz tarafından hiç bir kırma dökme işlemi yapılmadan ısınma sorunumuz yılın bu soğuk günlerinde yarım saatte çözüldü. Dürüst ve prensipli çalışmalarının, başarılarının devamını dilerim.
+</p>
+									</div>
+									<div class="profile">
+										<h5>Nurten GÜDER - Müşteri</h5>
+									</div>
+								</div>
+								<!-- End Quotes -->
+							</div></div><div class="owl-item" style="width: 1903px; margin-right: 30px;"><div class="item center">
+								<!-- Each Quotes -->
+								<div class="quotes">
+									<div class="quotes-text">
+										<p>Benim evde uzak petekler neredeyse hiç isinmiyordu ve bende sitenizdeki bilgileri okuduğumda sebebinin peteklerin şimdiye kadar hiç temizlenmemiş olması olabileceğini düşündüğümden petek temizliği yaptırmak istedim bunun için de sizin firmanızı tercih ettim. Temizlik işlemi tamamlandığımda gördüm ki benim ev daha önce ısınmıyormuş; evde resmen ısı devrimi gerçekleşti ? Bu kadar fark yaratacağını düşünmüyordum, benzer sorunu olanlara şiddetle tavsiye ederim. Firmanıza da teşekkür ederim.
+</p>
+									</div>
+									<div class="profile">
+										<h5>Ahmet AKMAN - Müşteri</h5>
+									</div>
+								</div>
+								<!-- End Quotes -->
+							</div></div><div class="owl-item active" style="width: 1903px; margin-right: 30px;"><div class="item center">
+								<!-- Each Quotes -->
+								<div class="quotes">
+									<div class="quotes-text center">
+										<p>Öncelikle Ya-Mir tesisat ve ekibine çok teşekkür ediyorum. Kalorifer tesisatımızdaki sorunu temizledikten sonra çözemeyip,üstüne üstlük kombi ile kollektör arasındaki alanı kırıp tıkanıklığı bu şekilde bulmaktan başka çare olmadığını söyleyen tesisatçının tam tersine Tesisat Uzmaniniz tarafından hiç bir kırma dökme işlemi yapılmadan ısınma sorunumuz yılın bu soğuk günlerinde yarım saatte çözüldü. Dürüst ve prensipli çalışmalarının, başarılarının devamını dilerim.
+</p>
+									</div>
+									<div class="profile">
+										<h5>Nurten GÜDER - Müşteri</h5>
+									</div>
+								</div>
+								<!-- End Quotes -->
+							</div></div><div class="owl-item cloned" style="width: 1903px; margin-right: 30px;"><div class="item center">
+								<!-- Each Quotes -->
+								<div class="quotes">
+									<div class="quotes-text">
+										<p>Benim evde uzak petekler neredeyse hiç isinmiyordu ve bende sitenizdeki bilgileri okuduğumda sebebinin peteklerin şimdiye kadar hiç temizlenmemiş olması olabileceğini düşündüğümden petek temizliği yaptırmak istedim bunun için de sizin firmanızı tercih ettim. Temizlik işlemi tamamlandığımda gördüm ki benim ev daha önce ısınmıyormuş; evde resmen ısı devrimi gerçekleşti ? Bu kadar fark yaratacağını düşünmüyordum, benzer sorunu olanlara şiddetle tavsiye ederim. Firmanıza da teşekkür ederim.
+</p>
+									</div>
+									<div class="profile">
+										<h5>Ahmet AKMAN - Müşteri</h5>
+									</div>
+								</div>
+								<!-- End Quotes -->
+							</div></div><div class="owl-item cloned" style="width: 1903px; margin-right: 30px;"><div class="item center">
+								<!-- Each Quotes -->
+								<div class="quotes">
+									<div class="quotes-text center">
+										<p>Öncelikle Ya-Mir tesisat ve ekibine çok teşekkür ediyorum. Kalorifer tesisatımızdaki sorunu temizledikten sonra çözemeyip,üstüne üstlük kombi ile kollektör arasındaki alanı kırıp tıkanıklığı bu şekilde bulmaktan başka çare olmadığını söyleyen tesisatçının tam tersine Tesisat Uzmaniniz tarafından hiç bir kırma dökme işlemi yapılmadan ısınma sorunumuz yılın bu soğuk günlerinde yarım saatte çözüldü. Dürüst ve prensipli çalışmalarının, başarılarının devamını dilerim.
+</p>
+									</div>
+									<div class="profile">
+										<h5>Nurten GÜDER - Müşteri</h5>
+									</div>
+								</div>
+								<!-- End Quotes -->
+							</div></div></div></div><div class="owl-controls"><div class="owl-nav"><div class="owl-prev" style="display: none;"><i class="fa fa-chevron-left"></i></div><div class="owl-next" style="display: none;"><i class="fa fa-chevron-right"></i></div></div><div class="owl-dots" style=""><div class="owl-dot"><span></span></div><div class="owl-dot active"><span></span></div></div></div></div>
+						<!-- End Slide -->
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="section-bg imagebg fixed-bg bg-image-loaded" style="background-image: url(&quot;https://www.domaineklenecek.com/wp-content/uploads/2020/09/plx-dark.jpg&quot;);">
+			<img src="https://i.imgur.com/pQJoX32.jpeg" alt="">
+		</div>
+	</div>
+	<!-- End Section -->
+<!-- Call Action -->
+	<div class="call-action bg-primary">
+		<div class="cta-block">
+			<div class="container">
+				<div class="content row">
+
+					<div class="cta-sameline">
+						<h3>Hizmetlerimizle ilgili detaylı bilgi için 
+ bizimle iletişime geçin.</h3>
+						<a class="btn btn-outline" href="tel:0(532) 393 82 65">7/24 TELEFON NUMARASI 0 532 393 82 65</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Section -->
+	<!-- Footer Widget-->
+	<div class="footer-widget section-pad-md">
+		<div class="container">
+			<div class="row">
+
+				<div class="widget-row row">
+					<div class="footer-col col-md-3 col-sm-6 res-m-bttm">
+						<!-- Each Widget -->
+						<div class="wgs wgs-footer wgs-menu">
+							<h5 class="wgs-title">Ya-Mir Tesisat Hizmetler</h5>
+							<div class="wgs-content">
+								<ul class="menu">
+								    									<li><a href="https://www.domaineklenecek.com/tesisat-doseme/"> İç-Dış Tesisat Döşeme</a></li>									<li><a href="https://www.domaineklenecek.com/kalorifer-montaj/">Kalorifer Montaj</a></li>									<li><a href="https://www.domaineklenecek.com/dogalgaz-montaj/">Duşakabin Montaj</a></li>									<li><a href="https://www.domaineklenecek.com/klozet-montaj/">Klozet Montaj</a></li>									<li><a href="https://www.domaineklenecek.com/petek-temizleme/">Petek Temizleme</a></li>									<li><a href="https://www.domaineklenecek.com/tikaniklik-acma/">Tıkanıklık Açma</a></li>								
+								</ul>
+							</div>
+						</div>
+						<!-- End Widget -->
+					</div>
+					<div class="footer-col col-md-3 col-sm-6 res-m-bttm">
+						<!-- Each Widget -->
+						<div class="wgs wgs-footer wgs-menu">
+							<h5 class="wgs-title">Hizmet Bölgeleri</h5>
+							<div class="wgs-content">
+								<ul class="menu">
+								    									<li><a href="https://www.domaineklenecek.com/akocak-su-kacagi-tespiti/">Akocak Su Kaçağı Tespiti</a></li>									<li><a href="https://www.domaineklenecek.com/kayakisla-su-kacagi-tespiti/">Kayakışla Su Kaçağı Tespiti</a></li>									<li><a href="https://www.domaineklenecek.com/avcilar-su-kacagi-tespiti/">Tulum Su Kaçağı Tespiti</a></li>									<li><a href="https://www.domaineklenecek.com/Yaylalık-su-kacagi-tespiti/">Yaylalık Su Kaçağı Tespiti</a></li>									<li><a href="https://www.domaineklenecek.com/sorgun-su-kacagi-tespiti/">Sorgun Su Kaçağı Tespiti</a></li>								
+								</ul>
+							</div>
+						</div>
+						<!-- End Widget -->
+					</div>
+					<div class="footer-col col-md-3 col-sm-6 res-m-bttm">
+						<!-- Each Widget -->
+						<div class="wgs wgs-footer">
+							<h5 class="wgs-title">Adres &amp; Telefon Bilgileri</h5>
+							<div class="wgs-content">
+								<ul class="contact-info">
+									<li><span>Telefon Numarası
+								</span>: 0(532) 393 82 65<br>
+										<span> Whatsapp Telefon</span>: 0(532) 393 82 65</li>
+									<li>Yozgat Sorgun / Eymir Kasabası Çay Mahallesi Çiğdem/1 Sokak No : 10
+
+
+</li>
+                                    <li>25 Yıllık güvenle ve garantili hizmet.
+%100 Müşteri memnuniyeti.</li>
+								</ul>
+								<ul class="social social-v2">
+									<li><a href="https://www.domaineklenecek.com/#"><em class="fab fa-facebook" aria-hidden="true"></em></a></li>
+									<li><a href="https://www.domaineklenecek.com/#"><em class="fab fa-twitter" aria-hidden="true"></em></a></li>
+									<li><a href="https://www.domaineklenecek.com/#"><em class="fab fa-linkedin" aria-hidden="true"></em></a></li>
+								</ul>
+							</div>
+						</div>
+						<!-- End Widget -->
+					</div>
+					<div class="footer-col col-md-3 col-sm-6">
+						<!-- Each Widget -->
+						<div class="wgs wgs-footer">
+							<div class="wgs-content">
+								
+								<div class="partner-ref">
+									
+									<h5 class="wgs-title">QR Kodu
+</h5>
+									<p style="
+    font-size: 17px;
+    
+    margin-bottom: 25px;
+">Ya-Mir Tesisat mobil site ve QR Kodu ile ihtiyaç duyduğun her an yanında!</p>
+
+
+
+									<img src="https://i.imgur.com/cfDTyYF.png" alt="QR Code" style="
+    width: 54px;
+    margin-top: -10px;
+">
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="copyright">
+		<div class="container">
+			<div class="row">
+				<div class="site-copy col-sm-7">
+					<p>Copyright Ya-Mir Tesisat 2021 Tüm hakları saklıdır <span class="sep"> </span> 
+						<p>Bu site "Miraç Yusuf BALTA" tarafından Web Editörü | 515022161 (Serkan Akan) dersi vize sınavı için hazırlanmıştır. <span class="sep"> </span>
+				</p></div>
+				<div class="site-by col-sm-5 al-right">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Copyright -->
+	<div id="mobil-sabit-menu"> <ul> <li> <a href="tel:05323938265" rel="nofollow"> <img src="https://i.imgur.com/0inGGSd.png" alt="ÇAĞRI MERKEZİ" height="24" width="24" data-src="https://www.domaineklenecek.com/wp-content/uploads/2021/04/telefon.png"> ÇAĞRI MERKEZİ </a> </li> <li> <a href="https://wa.me/905416475152" rel="nofollow"> <img src="https://i.imgur.com/YSqZTKU.png" alt="ONLİNE DESTEK" height="24" width="24" data-src="https://i.imgur.com/YSqZTKU.png"> ONLİNE DESTEK </a> </li> </ul> </div>
+	<!-- JavaScript Bundle -->
+	<script data-minify="1" src="./Yamir Sıhhi Tesisat_files/jquery.bundle.js.indir" defer=""></script>
+	<!-- Theme Script init() -->
+	<script data-minify="1" src="./Yamir Sıhhi Tesisat_files/ek.js.indir" defer=""></script>
+	
+
+
+<script type="text/javascript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script type="text/javascript" id="rocket-preload-links-js-extra">
+/* <![CDATA[ */
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/www.Ya-Mirtesisat.com","onHoverDelay":"100","rateThrottle":"3"};
+/* ]]> */
+</script>
+<script type="text/javascript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script data-minify="1" type="text/javascript" src="./Yamir Sıhhi Tesisat_files/jquery.min.js.indir" id="jquery-js" defer=""></script>
+<script type="text/javascript" src="./Yamir Sıhhi Tesisat_files/jquery.colorbox-min.js.indir" id="colorbox-js" defer=""></script>
+<script data-minify="1" type="text/javascript" src="./Yamir Sıhhi Tesisat_files/scripts.js.indir" id="sfr_kurumsalscripts-js" defer=""></script>
+<script type="text/javascript" src="./Yamir Sıhhi Tesisat_files/wp-embed.min.js.indir" id="wp-embed-js" defer=""></script>
+
+<script>"use strict";var wprRemoveCPCSS=function wprRemoveCPCSS(){var elem;document.querySelector('link[data-rocket-async="style"][rel="preload"]')?setTimeout(wprRemoveCPCSS,200):(elem=document.getElementById("rocket-critical-css"))&&"remove"in elem&&elem.remove()};window.addEventListener?window.addEventListener("load",wprRemoveCPCSS):window.attachEvent&&window.attachEvent("onload",wprRemoveCPCSS);</script><noscript><link rel="stylesheet" type="text/css" href="https://www.domaineklenecek.com/wp-content/themes/Ya-Mirtesisat/style.php?color=" media="all" /><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Exo%202%3A400%2C500%2C600%2C700%2C300&#038;subset=latin%2Clatin-ext&#038;display=swap" /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&#038;family=Poppins:wght@100&#038;display=swap" /><link rel="stylesheet" href="https://www.domaineklenecek.com/wp-content/cache/min/1/ee14bb59812ce99d179c021e607bd77b.css" media="all" data-minify="1" /></noscript>
+
+
+<div id="cboxOverlay" style="display: none;"></div><div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;"><div id="cboxWrapper"><div><div id="cboxTopLeft" style="float: left;"></div><div id="cboxTopCenter" style="float: left;"></div><div id="cboxTopRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxMiddleLeft" style="float: left;"></div><div id="cboxContent" style="float: left;"><div id="cboxTitle" style="float: left;"></div><div id="cboxCurrent" style="float: left;"></div><button type="button" id="cboxPrevious"></button><button type="button" id="cboxNext"></button><button id="cboxSlideshow"></button><div id="cboxLoadingOverlay" style="float: left;"></div><div id="cboxLoadingGraphic" style="float: left;"></div></div><div id="cboxMiddleRight" style="float: left;"></div></div><div style="clear: left;"><div id="cboxBottomLeft" style="float: left;"></div><div id="cboxBottomCenter" style="float: left;"></div><div id="cboxBottomRight" style="float: left;"></div></div></div><div style="position: absolute; width: 9999px; visibility: hidden; display: none; max-width: none;"></div></div></body></html>
